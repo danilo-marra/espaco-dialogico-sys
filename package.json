@@ -1,0 +1,24 @@
+{
+  "name": "espaco-dialogico",
+  "version": "1.0.0",
+  "description": "Sistema de Controle e finanças para uma clínica de psicologia",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev"
+  },
+  "keywords": [
+    "psicologia",
+    "terapia",
+    "controle",
+    "pacientes",
+    "financeiro",
+    "infantil"
+  ],
+  "author": "Danilo Marra Rabelo",
+  "license": "MIT",
+  "dependencies": {
+    "next": "^13.1.6",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}
