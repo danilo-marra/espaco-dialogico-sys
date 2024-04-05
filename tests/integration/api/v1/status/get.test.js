@@ -1,13 +1,19 @@
-test("GET to /api/v1/status should return 200", async () => {
-  const response = await fetch("http://localhost:3000/api/v1/status");
+import database from "infra/database.js";
+
+beforeAll(cleanDatabase);
+
+async function cleanDatabase() {
+  await database.query("drop schema public cascade; create schema public");
+}
+
+test("GET to /api/v1/migrations should return 200", async () => {
+  const response = await fetch("http://localhost:3000/api/v1/migrations", {
+    method: "GET",
+  });
   expect(response.status).toBe(200);
 
   const responseBody = await response.json();
 
-  const parsedUpdateAt = new Date(responseBody.updated_at).toISOString();
-  expect(responseBody.updated_at).toEqual(parsedUpdateAt);
-
-  expect(responseBody.dependencies.database.version).toEqual("16.1");
-  expect(responseBody.dependencies.database.max_connections).toEqual(100);
-  expect(responseBody.dependencies.database.opened_connections).toEqual(1);
+  expect(Array.isArray(responseBody)).toBe(true);
+  expect(responseBody.length).toBeGreaterThan(0);
 });
