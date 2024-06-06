@@ -1,3 +1,3 @@
-# espaco-dialogico-sys
+# clone-tabnews
 
-Sistema de Controle e Finanças para uma Clínica de Psicologia.
+Implementação do https://www.tabnews.com.br para o https://curso.dev

@@ -22,11 +22,10 @@ export default async function migrations(request, response) {
       direction: "up",
       verbose: true,
       migrationsTable: "pgmigrations",
-      //noLock: true,
     };
+
     if (request.method === "GET") {
       const pendingMigrations = await migrationRunner(defaultMigrationOptions);
-
       return response.status(200).json(pendingMigrations);
     }
 
