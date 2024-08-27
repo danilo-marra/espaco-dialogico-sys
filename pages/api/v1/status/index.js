@@ -1,7 +1,5 @@
 import database from "infra/database";
 
-const API_KEY = 1234567890;
-
 async function status(request, response) {
   const updatedAt = new Date().toISOString();
 
