@@ -14,7 +14,7 @@ export default async function migrations(request, response) {
 
   try {
     dbClient = await database.getNewClient();
-
+    console.log(request.method);
     const defaultMigrationOptions = {
       dbClient: dbClient,
       dryRun: true,
