@@ -1,4 +1,4 @@
-import useSWR from 'swr';
+import useSWR from "swr";
 
 async function fetchAPI(key) {
   const response = await fetch(key);
@@ -7,15 +7,13 @@ async function fetchAPI(key) {
 }
 
 export default function StatusPage() {
-
   return (
     <>
       <h1>Status</h1>
       <UpdateAt />
       <DatabaseStatus />
-
     </>
-  )
+  );
 }
 
 function UpdateAt() {
@@ -28,7 +26,7 @@ function UpdateAt() {
   if (!isLoading && data) {
     updateAtText = new Date(data.updated_at).toLocaleString("pt-BR");
   }
-  return <div>Última Atualização: {updateAtText}</div>
+  return <div>Última Atualização: {updateAtText}</div>;
 }
 
 function DatabaseStatus() {
@@ -42,19 +40,20 @@ function DatabaseStatus() {
     databaseStatusInformation = (
       <>
         <div>Versão: {data.dependencies.database.version}</div>
-        <div>Conexões Abertas: {data.dependencies.database.opened_connections}</div>
-        <div>Conexões Máximas: {data.dependencies.database.max_connections}</div>
+        <div>
+          Conexões Abertas: {data.dependencies.database.opened_connections}
+        </div>
+        <div>
+          Conexões Máximas: {data.dependencies.database.max_connections}
+        </div>
       </>
-    )
-  };
+    );
+  }
 
   return (
     <>
       <h2>Database</h2>
-      <div>
-        {databaseStatusInformation}
-      </div>
+      <div>{databaseStatusInformation}</div>
     </>
-  )
-
+  );
 }
