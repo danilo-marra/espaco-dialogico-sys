@@ -1,3 +1,4 @@
+name: espaco-dialogico-sys
 services:
   espaco_dialogico_sys:
     container_name: espaco_dialogico_sys
