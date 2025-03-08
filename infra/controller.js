@@ -1,4 +1,4 @@
-import { InternalServerError, MethodNotAllowedError, ValidationError, ValidationUsernameError } from "infra/errors";
+import { InternalServerError, MethodNotAllowedError, ValidationError } from "infra/errors";
 
 function onNoMatchHandler(request, response) {
   const publicErrorObject = new MethodNotAllowedError();
