@@ -1,16 +1,47 @@
 import database from "infra/database.js";
-import { ValidationError } from "infra/errors.js";
+import { ValidationError, NotFoundError } from "infra/errors.js";
 
-async function create (userInputValues) {
+async function findOneByUsername(username) {
+  const userFound = await runSelectQuery(username);
+
+  return userFound;
+
+  async function runSelectQuery(username) {
+    const results = await database.query({
+      text: `
+      SELECT
+        *
+      FROM
+        users
+      WHERE
+        LOWER(username) = LOWER($1)
+      LIMIT
+        1
+      ;`,
+      values: [username],
+    });
+
+    if (results.rowCount === 0) {
+      throw new NotFoundError({
+        message: "Usuário não encontrado.",
+        action: "Verifique se o username informado está correto.",
+      });
+    }
+
+    return results.rows[0];
+  }
+}
+
+async function create(userInputValues) {
   await validateUniqueEmail(userInputValues.email);
-  await validateUniqueUsername(userInputValues.username)
+  await validateUniqueUsername(userInputValues.username);
 
   const newUser = await runInsertQuery(userInputValues);
   return newUser;
 
   async function validateUniqueEmail(email) {
     const results = await database.query({
-      text:`
+      text: `
       SELECT
         email
       FROM
@@ -25,13 +56,13 @@ async function create (userInputValues) {
       throw new ValidationError({
         message: "O email informado já está sendo utilizado.",
         action: "Utilize outro email para realizaro o cadastro.",
-      })
+      });
     }
   }
 
   async function validateUniqueUsername(username) {
     const results = await database.query({
-      text:`
+      text: `
       SELECT
         username
       FROM
@@ -46,13 +77,13 @@ async function create (userInputValues) {
       throw new ValidationError({
         message: "O username informado já está sendo utilizado.",
         action: "Utilize outro username para realizaro o cadastro.",
-      })
+      });
     }
   }
 
   async function runInsertQuery(userInputValues) {
     const results = await database.query({
-      text:`
+      text: `
       INSERT INTO
         users (username, email, password)
       VALUES
@@ -60,7 +91,11 @@ async function create (userInputValues) {
       RETURNING
         *
       ;`,
-      values: [userInputValues.username, userInputValues.email, userInputValues.password],
+      values: [
+        userInputValues.username,
+        userInputValues.email,
+        userInputValues.password,
+      ],
     });
 
     return results.rows[0];
@@ -69,6 +104,7 @@ async function create (userInputValues) {
 
 const user = {
   create,
-}
+  findOneByUsername,
+};
 
 export default user;

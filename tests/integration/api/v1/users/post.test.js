@@ -26,20 +26,18 @@ describe("POST /api/v1/users", () => {
 
       const responseBody = await response.json();
 
-      expect(responseBody).toEqual(
-        {
-          id: responseBody.id,
-          username: 'john_doe',
-          email: 'contato@john_doe.com',
-          password: 'senha123',
-          created_at: responseBody.created_at,
-          updated_at: responseBody.updated_at,
+      expect(responseBody).toEqual({
+        id: responseBody.id,
+        username: "john_doe",
+        email: "contato@john_doe.com",
+        password: "senha123",
+        created_at: responseBody.created_at,
+        updated_at: responseBody.updated_at,
       });
 
       expect(uuidVersion(responseBody.id)).toBe(4);
       expect(Date.parse(responseBody.created_at)).not.toBeNaN();
       expect(Date.parse(responseBody.updated_at)).not.toBeNaN();
-      
     });
     test("With duplicated 'email'", async () => {
       const response1 = await fetch("http://localhost:3000/api/v1/users", {
@@ -76,13 +74,12 @@ describe("POST /api/v1/users", () => {
         message: "O email informado já está sendo utilizado.",
         action: "Utilize outro email para realizaro o cadastro.",
         status_code: 400,
-      })
+      });
       // 409 - conflict
       // 422 - unprocessable entity
       // 404 - not found
       // 401 - unauthorized
       // 403 - forbidden
-      
     });
     test("With duplicated 'username'", async () => {
       const response1 = await fetch("http://localhost:3000/api/v1/users", {
@@ -119,8 +116,7 @@ describe("POST /api/v1/users", () => {
         message: "O username informado já está sendo utilizado.",
         action: "Utilize outro username para realizaro o cadastro.",
         status_code: 400,
-      })
-      
+      });
     });
   });
 });
