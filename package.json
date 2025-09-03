@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Implementação do https://www.tabnews.com.br para o https://curso.dev",
   "main": "index.js",
+  "engines": {
+    "node": "22.x"
+  },
   "scripts": {
     "dev": "npm run services:up && npm run services:wait:database && npm run migrations:up && next dev",
     "test": "npm run services:up && concurrently -n next,jest --hide next -k -s command-jest \"next dev\" \"jest --runInBand --verbose\"",
@@ -33,6 +36,7 @@
     "next": "14.2.7",
     "next-connect": "1.0.0",
     "node-pg-migrate": "7.6.1",
+    "nodemailer": "7.0.5",
     "pg": "8.12.0",
     "react": "18.3.1",
     "react-dom": "18.3.1",
