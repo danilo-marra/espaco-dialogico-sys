@@ -53,7 +53,7 @@ describe("POST /api/v1/users", () => {
       expect(correctPasswordMatch).toBe(true);
       expect(inCorrectPasswordMatch).toBe(false);
     });
-    test("With duplicated 'email'", async () => {
+    test("With duplicated `email`", async () => {
       const response1 = await fetch("http://localhost:3000/api/v1/users", {
         method: "POST",
         headers: {
@@ -95,7 +95,7 @@ describe("POST /api/v1/users", () => {
       // 401 - unauthorized
       // 403 - forbidden
     });
-    test("With duplicated 'username'", async () => {
+    test("With duplicated `username`", async () => {
       const response1 = await fetch("http://localhost:3000/api/v1/users", {
         method: "POST",
         headers: {
