@@ -11,7 +11,7 @@ async function getUser(providedEmail, providedPassword) {
   } catch (error) {
     if (error instanceof UnauthorizedError) {
       throw new UnauthorizedError({
-        message: "Dados de auntenticação não conferem.",
+        message: "Dados de autenticação não conferem.",
         action: "Verifique se os dados enviados estão corretos.",
       });
     }
