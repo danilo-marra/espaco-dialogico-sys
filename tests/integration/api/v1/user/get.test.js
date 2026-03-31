@@ -84,7 +84,7 @@ describe("GET /api/v1/user", () => {
       expect(parsedSetCookie.session_id).toEqual({
         name: "session_id",
         value: sessionObject.token,
-        maxAge: session.EXPIRATION_IN_MILISECONDS / 1000,
+        maxAge: session.EXPIRATION_IN_MILLISECONDS / 1000,
         path: "/",
         httpOnly: true,
         sameSite: "Lax",
@@ -128,7 +128,7 @@ describe("GET /api/v1/user", () => {
 
     test("With expired session", async () => {
       jest.useFakeTimers({
-        now: Date.now() - session.EXPIRATION_IN_MILISECONDS,
+        now: Date.now() - session.EXPIRATION_IN_MILLISECONDS,
       });
 
       const createdUser = await orchestrator.createUser({
@@ -183,7 +183,7 @@ describe("GET /api/v1/user", () => {
       const sessionObject = await orchestrator.createSession(activatedUser);
 
       // 2. Avance o tempo para perto da expiração
-      jest.advanceTimersByTime(session.EXPIRATION_IN_MILISECONDS - 1000);
+      jest.advanceTimersByTime(session.EXPIRATION_IN_MILLISECONDS - 1000);
 
       const response = await fetch(`${webserver.origin}/api/v1/user`, {
         headers: {
@@ -228,7 +228,7 @@ describe("GET /api/v1/user", () => {
       expect(parsedSetCookie.session_id).toEqual({
         name: "session_id",
         value: renewedSessionObject.token,
-        maxAge: session.EXPIRATION_IN_MILISECONDS / 1000,
+        maxAge: session.EXPIRATION_IN_MILLISECONDS / 1000,
         path: "/",
         httpOnly: true,
         sameSite: "Lax",
