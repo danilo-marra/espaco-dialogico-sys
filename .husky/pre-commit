@@ -1,3 +1,5 @@
-npm run lint:prettier:fix
-git add -A
+if git diff --cached --name-only --diff-filter=ACMR | grep -q .; then
+  npx lint-staged
+fi
+
 npm run check-secrets
